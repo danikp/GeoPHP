@@ -10,6 +10,7 @@
 
 namespace GeoPHP\Adapter;
 
+use GeoPHP\Config;
 use GeoPHP\Geo;
 use GeoPHP\Geometry\Geometry;
 use GeoPHP\Geometry\GeometryCollection;
@@ -298,6 +299,7 @@ class WKT extends Adapter
             if (Geo::geosInstalled() && $geometry->geos()) {
                 $writer = new \GEOSWKTWriter();
                 $writer->setTrim(true);
+                $writer->setRoundingPrecision(Config::$roundingPrecision);
 
                 return $writer->write($geometry->geos());
             } elseif ($data = $this->extractData($geometry)) {
@@ -318,7 +320,7 @@ class WKT extends Adapter
         $parts = array();
         switch ($geometry->geometryType()) {
             case 'Point':
-                return $geometry->getX() . ' ' . $geometry->getY();
+                return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
             case 'LineString':
                 foreach ($geometry->getComponents() as $component) {
                     $parts[] = $this->extractData($component);

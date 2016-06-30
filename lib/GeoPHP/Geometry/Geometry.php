@@ -113,6 +113,9 @@ abstract class Geometry
 
     abstract public function equals($geom);
 
+    /**
+     * @return bool
+     */
     abstract public function isEmpty();
 
     abstract public function isSimple();
@@ -264,7 +267,7 @@ abstract class Geometry
     /**
      * Returns the GEOS reader object or false when GEOS is not installed.
      *
-     * @return false|\GEOSWKBReader
+     * @return false|\GEOSGeometry
      */
     public function geos()
     {
