@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        processIsolation="false"
+        stopOnError="true"
+        stopOnFailure="true"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        convertErrorsToExceptions="false"
+        convertNoticesToExceptions="false"
+        convertWarningsToExceptions="false"
+        colors="true"
+        syntaxCheck="false"
+        verbose="true"
+        printerClass="PHPUnit_TextUI_ResultPrinter"
+        bootstrap="tests/bootstrap.php">
+    <php>
+        <env name="GEOPHP_PG_HOST" value="127.0.0.1"/>
+        <env name="GEOPHP_PG_PORT" value="5432"/>
+        <env name="GEOPHP_PG_DATABASE" value="geophp"/>
+        <env name="GEOPHP_PG_USER" value="postgres"/>
+        <env name="GEOPHP_PG_PASSWORD" value="postgres"/>
+    </php>
+    <testsuites>
+        <testsuite name="GeoPHP Test Suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
