@@ -14,7 +14,7 @@ before_script:
   # Install phpmd
   - wget --no-check-certificate -c https://static.phpmd.org/php/latest/phpmd.phar
   - install --mode 0755 phpmd.phar $PWD/bin/phpmd
-  - if [[ $WITH_GEOS == true ]]; then VERSION=3.5.0 bash $PWD/.travis/install_geos.sh; fi;
+  - if [[ $WITH_GEOS == true ]]; then bash $PWD/.travis/install_geos.sh; fi;
 
 before_install:
 #  - sudo apt-get update -qq
@@ -43,7 +43,8 @@ script:
   - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpmd lib text ./.phpmd.xml; fi;'
 
 env:
-  - WITH_GEOS=true
+  - WITH_GEOS=true VERSION=3.5.0
+  - WITH_GEOS=true VERSION=svn-3.4
   - WITH_GEOS=false
 
 # run tests on the following versions
@@ -63,7 +64,11 @@ matrix:
   exclude:
     # hhmv does not support geos
     - php: hhvm
-      env: WITH_GEOS=true
+      env: WITH_GEOS=true VERSION=3.5.0
+    - php: hhvm
+      env: WITH_GEOS=true VERSION=svn-3.4
     # php7 extension is not available
     - php: 7
-      env: WITH_GEOS=true
+      env: WITH_GEOS=true VERSION=3.5.0
+    - php: 7
+      env: WITH_GEOS=true VERSION=svn-3.4
