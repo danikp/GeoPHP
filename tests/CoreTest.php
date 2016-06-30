@@ -166,8 +166,8 @@ class CoreTest extends BaseTest
             if ($geosType == 'boolean' || $geosType == 'string') {
                 if ($geos_result !== $norm_result) {
                     $this->fail('Output mismatch on ' . $method .
-                        'GEOS: ' . (string)$geos_result . "\n" .
-                        'NORM: ' . (string)$norm_result
+                        'GEOS: ' . (string) $geos_result . "\n" .
+                        'NORM: ' . (string) $norm_result
                     );
                     continue;
                 }
@@ -250,7 +250,7 @@ class CoreTest extends BaseTest
         );
 
         $exceptions = array(
-            'Point' => array('pointOnSurface', 'simplify',),
+            'Point' => array('pointOnSurface', 'simplify'),
         );
 
         if (!Geo::geosInstalled()) {
@@ -264,7 +264,7 @@ class CoreTest extends BaseTest
                 // expect unsupported exception
                 try {
                     call_user_func(array($geometry, $method), $arg);
-                    $this->fail('Exception should be thrown for ' . $method . " on " . get_class($geometry));
+                    $this->fail('Exception should be thrown for ' . $method . ' on ' . get_class($geometry));
                 } catch (UnsupportedException $e) {
                     $this->assertEquals(UnsupportedException::CODE_METHOD_NOT_SUPPORTED, $e->getCode());
                 }

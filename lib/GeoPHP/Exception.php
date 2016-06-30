@@ -16,7 +16,7 @@ namespace GeoPHP;
 class Exception extends \Exception
 {
     /**
-     * Method is not supported
+     * Method is not supported.
      */
     const CODE_METHOD_NOT_SUPPORTED = 1;
 }

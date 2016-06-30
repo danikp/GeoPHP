@@ -326,7 +326,8 @@ class WKT extends Adapter
                     } else {
                         $decimalPlaces = 6;
                     }
-                    return (string)(number_format($geometry->getX(), $decimalPlaces, '.', '') + 0) . ' ' . (string)(number_format($geometry->getY(), $decimalPlaces, '.', '') + 0);
+
+                    return (string) (number_format($geometry->getX(), $decimalPlaces, '.', '') + 0) . ' ' . (string) (number_format($geometry->getY(), $decimalPlaces, '.', '') + 0);
                 } else {
                     return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
                 }

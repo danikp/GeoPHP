@@ -31,7 +31,7 @@ class GoogleGeocode extends Adapter
      *
      * @param string $address Address to geocode
      * @param string $returnType Type of Geometry to return. Can either be 'points' or 'bounds' (polygon)
-     * @param Geometry|array|boolean $bounds array - Limit the search area to within this region. For example
+     * @param Geometry|array|bool $bounds array - Limit the search area to within this region. For example
      *                                by default geocoding "Cairo" will return the location of Cairo Egypt.
      *                                If you pass a polygon of illinois, it will return Cairo IL.
      * @param bool $returnMultiple - Return all results in a multipoint or multipolygon
