@@ -218,33 +218,63 @@ class CoreTest extends BaseTest
         $geometry->asText();
         $geometry->asBinary();
 
+        $geometry->equals($geometry);
+        $geometry->isSimple();
         // GEOS only functions
         $geometry->geos();
         $geometry->setGeos($geometry->geos());
-        $geometry->pointOnSurface();
-        $geometry->equals($geometry);
-        $geometry->equalsExact($geometry);
-        $geometry->relate($geometry);
-        $geometry->checkValidity();
-        $geometry->isSimple();
-        $geometry->buffer(10);
-        $geometry->intersection($geometry);
-        $geometry->convexHull();
-        $geometry->difference($geometry);
-        $geometry->symDifference($geometry);
-        $geometry->union($geometry);
-        $geometry->simplify(0);// @@TODO: Adjust this once we can deal with empty geometries
-        $geometry->disjoint($geometry);
-        $geometry->touches($geometry);
-        $geometry->intersects($geometry);
-        $geometry->crosses($geometry);
-        $geometry->within($geometry);
-        $geometry->contains($geometry);
-        $geometry->overlaps($geometry);
-        $geometry->covers($geometry);
-        $geometry->coveredBy($geometry);
-        $geometry->distance($geometry);
-        $geometry->hausdorffDistance($geometry);
+
+        $methods = array(
+            'pointOnSurface' => null,
+            'equalsExact' => $geometry,
+            'relate' => $geometry,
+            'checkValidity' => null,
+            'buffer' => 10,
+            'intersection' => $geometry,
+            'convexHull' => null,
+            'difference' => $geometry,
+            'symDifference' => $geometry,
+            'union' => $geometry,
+            'simplify' => 0,
+            'disjoint' => $geometry,
+            'touches' => $geometry,
+            'intersects' => $geometry,
+            'crosses' => $geometry,
+            'within' => $geometry,
+            'contains' => $geometry,
+            'overlaps' => $geometry,
+            'covers' => $geometry,
+            'coveredBy' => $geometry,
+            'distance' => $geometry,
+            'hausdorffDistance' => $geometry,
+        );
+
+        $exceptions = array(
+            'Point' => array('pointOnSurface', 'simplify',),
+        );
+
+        if (!Geo::geosInstalled()) {
+            foreach ($methods as $method => $arg) {
+
+                // this is an exception
+                if (isset($exceptions[$geometry->getGeomType()]) && in_array($method, $exceptions[$geometry->getGeomType()])) {
+                    continue;
+                }
+
+                // expect unsupported exception
+                try {
+                    call_user_func(array($geometry, $method), $arg);
+                    $this->fail('Exception should be thrown for ' . $method . " on " . get_class($geometry));
+                } catch (UnsupportedException $e) {
+                    $this->assertEquals(UnsupportedException::CODE_METHOD_NOT_SUPPORTED, $e->getCode());
+                }
+            }
+        } else {
+            foreach ($methods as $method => $arg) {
+                // FIXME: validate return value?
+                call_user_func(array($geometry, $method), $arg);
+            }
+        }
 
         // Place holders
         $geometry->hasZ();

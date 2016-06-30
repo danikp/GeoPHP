@@ -33,7 +33,7 @@ namespace {
         {
         }
 
-        public function project()
+        public function project(GEOSGeometry $geometry, $normalized = null)
         {
         }
 
@@ -41,7 +41,7 @@ namespace {
         {
         }
 
-        public function buffer()
+        public function buffer(GEOSGeometry $geometry)
         {
         }
 
@@ -53,7 +53,7 @@ namespace {
         {
         }
 
-        public function intersection()
+        public function intersection(GEOSGeometry $geometry)
         {
         }
 
@@ -61,11 +61,11 @@ namespace {
         {
         }
 
-        public function difference()
+        public function difference(GEOSGeometry $geometry)
         {
         }
 
-        public function symDifference()
+        public function symDifference(GEOSGeometry $geometry)
         {
         }
 
@@ -73,7 +73,7 @@ namespace {
         {
         }
 
-        public function union()
+        public function union(GEOSGeometry $geometry)
         {
         }
 
@@ -88,7 +88,7 @@ namespace {
         {
         }
 
-        public function relate()
+        public function relate(GEOSGeometry $geometry, $pattern = null)
         {
         }
 
@@ -96,7 +96,7 @@ namespace {
         {
         }
 
-        public function simplify()
+        public function simplify($tolerance, $preserveTopology)
         {
         }
 
@@ -104,15 +104,15 @@ namespace {
         {
         }
 
-        public function disjoint()
+        public function disjoint(GEOSGeometry $geometry)
         {
         }
 
-        public function touches()
+        public function touches(GEOSGeometry $geometry)
         {
         }
 
-        public function intersects()
+        public function intersects(GEOSGeometry $geometry)
         {
         }
 
@@ -120,31 +120,31 @@ namespace {
         {
         }
 
-        public function within()
+        public function within(GEOSGeometry $geometry)
         {
         }
 
-        public function contains()
+        public function contains(GEOSGeometry $geometry)
         {
         }
 
-        public function overlaps()
+        public function overlaps(GEOSGeometry $geometry)
         {
         }
 
-        public function covers()
+        public function covers(GEOSGeometry $geometry)
         {
         }
 
-        public function coveredBy()
+        public function coveredBy(GEOSGeometry $geometry)
         {
         }
 
-        public function equals()
+        public function equals(GEOSGeometry $geometry)
         {
         }
 
-        public function equalsExact()
+        public function equalsExact(GEOSGeometry $geometry)
         {
         }
 
@@ -184,7 +184,7 @@ namespace {
         {
         }
 
-        public function setSRID()
+        public function setSRID($srid)
         {
         }
 
@@ -252,11 +252,11 @@ namespace {
         {
         }
 
-        public function distance()
+        public function distance(GEOSGeometry $geometry)
         {
         }
 
-        public function hausdorffDistance()
+        public function hausdorffDistance(GEOSGeometry $geometry)
         {
         }
 
@@ -290,7 +290,10 @@ namespace {
         {
         }
 
-        public function readHex($string)
+        /**
+         * @return GEOSGeometry
+         */
+        public function readHEX($string)
         {
         }
 

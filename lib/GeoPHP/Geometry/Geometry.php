@@ -10,6 +10,7 @@
 
 namespace GeoPHP\Geometry;
 
+use GeoPHP\Exception\UnsupportedException;
 use GeoPHP\Geo;
 
 /**
@@ -306,6 +307,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->pointOnSurface());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function equalsExact(Geometry $geometry)
@@ -313,6 +316,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->equalsExact($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function relate(Geometry $geometry, $pattern = null)
@@ -324,6 +329,8 @@ abstract class Geometry
                 return $this->geos()->relate($geometry->geos());
             }
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function checkValidity()
@@ -331,6 +338,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->checkValidity();
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function buffer($distance)
@@ -338,6 +347,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->buffer($distance));
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function intersection(Geometry $geometry)
@@ -345,6 +356,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->intersection($geometry->geos()));
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function convexHull()
@@ -352,6 +365,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->convexHull());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function difference(Geometry $geometry)
@@ -359,6 +374,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->difference($geometry->geos()));
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function symDifference(Geometry $geometry)
@@ -366,6 +383,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->symDifference($geometry->geos()));
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     // Can pass in a geometry or an array of geometries
@@ -383,6 +402,8 @@ abstract class Geometry
                 return Geo::geosToGeometry($this->geos()->union($geometry->geos()));
             }
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function simplify($tolerance, $preserveTopology = false)
@@ -390,6 +411,8 @@ abstract class Geometry
         if ($this->geos()) {
             return Geo::geosToGeometry($this->geos()->simplify($tolerance, $preserveTopology));
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function disjoint(Geometry $geometry)
@@ -397,6 +420,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->disjoint($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function touches(Geometry $geometry)
@@ -404,6 +429,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->touches($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function intersects(Geometry $geometry)
@@ -411,6 +438,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->intersects($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function crosses(Geometry $geometry)
@@ -418,6 +447,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->crosses($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function within(Geometry $geometry)
@@ -425,6 +456,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->within($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function contains(Geometry $geometry)
@@ -432,6 +465,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->contains($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function overlaps(Geometry $geometry)
@@ -439,6 +474,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->overlaps($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function covers(Geometry $geometry)
@@ -446,6 +483,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->covers($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function coveredBy(Geometry $geometry)
@@ -453,6 +492,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->coveredBy($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function distance(Geometry $geometry)
@@ -460,6 +501,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->distance($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function hausdorffDistance(Geometry $geometry)
@@ -467,6 +510,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->hausdorffDistance($geometry->geos());
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     public function project(Geometry $point, $normalized = null)
@@ -474,6 +519,8 @@ abstract class Geometry
         if ($this->geos()) {
             return $this->geos()->project($point->geos(), $normalized);
         }
+
+        throw UnsupportedException::methodNotSupported(__METHOD__);
     }
 
     // Public - Placeholders
