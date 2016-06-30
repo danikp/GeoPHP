@@ -231,7 +231,7 @@ class WKB extends Adapter
             $wkb = pack('dd', $point->x(), $point->y());
         } else {
             // see: https://trac.osgeo.org/postgis/ticket/3181
-            $wkb = pack('dd', NAN, NAN);
+            $wkb = pack('dd', 'nan', 'nan');
         }
 
         return $wkb;

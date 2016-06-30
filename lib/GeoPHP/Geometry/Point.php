@@ -46,7 +46,7 @@ class Point extends Geometry
         // Check if it's an empty point
         // POINT EMPTY is now stored as POINT(NaN NaN) in WKB, instead of as MULTIPOINT EMPTY
         // see: https://trac.osgeo.org/postgis/ticket/3181
-        if ($x === null && $y === null || ($x === NAN && $y === NAN)) {
+        if ($x === null && $y === null || ($x === 'nan' && $y === 'nan')) {
             $this->coords = array(null, null);
             $this->dimension = 0;
 
