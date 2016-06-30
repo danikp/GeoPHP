@@ -298,7 +298,7 @@ class WKT extends Adapter
             // If geos is installed, then we take a shortcut and let it write the WKT
             if (Geo::geosInstalled() && $geometry->geos()) {
                 $writer = new \GEOSWKTWriter();
-                $writer->setTrim(true);
+                $writer->setTrim(Config::$trimUnnecessaryDecimals);
                 $writer->setRoundingPrecision(Config::$roundingPrecision);
 
                 return $writer->write($geometry->geos());
@@ -320,7 +320,17 @@ class WKT extends Adapter
         $parts = array();
         switch ($geometry->geometryType()) {
             case 'Point':
-                return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
+                if (Config::$trimUnnecessaryDecimals) {
+                    if (Config::$roundingPrecision !== -1) {
+                        $decimalPlaces = 3;
+                    } else {
+                        $decimalPlaces = 6;
+                    }
+                    return (string)(number_format($geometry->getX(), $decimalPlaces, '.', '') + 0) . ' ' . (string)(number_format($geometry->getY(), $decimalPlaces, '.', '') + 0);
+                } else {
+                    return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
+                }
+
             case 'LineString':
                 foreach ($geometry->getComponents() as $component) {
                     $parts[] = $this->extractData($component);

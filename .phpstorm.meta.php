@@ -81,6 +81,9 @@ namespace {
         {
         }
 
+        /**
+         * @return GEOSGeometry
+         */
         public function centroid()
         {
         }

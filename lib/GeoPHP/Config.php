@@ -17,7 +17,7 @@ final class Config
      *
      * @var int
      */
-    public static $roundingPrecision = 16;
+    public static $roundingPrecision = -1;
 
     /**
      * Use with sprintf.
@@ -28,20 +28,55 @@ final class Config
     public static $roundingPrecisionFormat = '%.16f';
 
     /**
+     * Do not set this value directly, use setTrimUnnecessaryDecimals() instead.
+     * @var bool
+     */
+    public static $trimUnnecessaryDecimals = false;
+
+    /**
      * @param int $roundingPrecision
+     * @return boolean Old value
      */
     public static function setRoundingPrecision($roundingPrecision)
     {
+        $roundingPrecision = (int)$roundingPrecision;
+
+        $oldValue = self::$roundingPrecision;
+
+        if ($roundingPrecision < 0) {
+            $roundingPrecision = -1;
+            self::$roundingPrecisionFormat = '%.16f';
+        } else {
+            self::$roundingPrecisionFormat = '%.' . $roundingPrecision . 'f';
+        }
+
         self::$roundingPrecision = $roundingPrecision;
-        self::$roundingPrecisionFormat = '%.' . $roundingPrecision . 'f';
+
+        return $oldValue;
     }
 
     /**
-     * Restores back the default rounding precision.
+     * Enables/disables trimming of unnecessary decimals
+     *
+     * @param boolean $trimLeadingZeros
+     * @return boolean Old value
      */
-    public static function restoreDefaultRoundingPrecision()
+    public static function setTrimUnnecessaryDecimals($trimLeadingZeros)
     {
-        static::setRoundingPrecision(16);
+        $oldValue = self::$trimUnnecessaryDecimals;
+
+        self::$trimUnnecessaryDecimals = (bool)$trimLeadingZeros;
+
+        return $oldValue;
+    }
+
+    /**
+     * Restores back the default values
+     */
+    public static function restoreDefaults()
+    {
+        static::setRoundingPrecision(-1);
+        static::setTrimUnnecessaryDecimals(false);
     }
 
     private function __construct()
