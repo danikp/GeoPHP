@@ -3,6 +3,7 @@
 language: php
 
 before_script:
+  - phpenv config-rm xdebug.ini
   - composer self-update
   - psql -c 'CREATE DATABASE geophp;' -U postgres
   - psql -c 'CREATE EXTENSION postgis;' -U postgres -d geophp
