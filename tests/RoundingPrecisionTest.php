@@ -47,6 +47,11 @@ class RoundingPrecisionTest extends BaseTest
         $this->assertEquals($expected, $wkt);
     }
 
+    public static function tearDownAfterClass()
+    {
+        Config::restoreDefaultRoundingPrecision();
+    }
+
     public function getDataForPrecisionTest()
     {
         return array(
