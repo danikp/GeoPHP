@@ -320,18 +320,8 @@ class WKT extends Adapter
         $parts = array();
         switch ($geometry->geometryType()) {
             case 'Point':
-                if (Config::$trimUnnecessaryDecimals) {
-                    // FIXME: I don't know how to trim unneeded decimals, GEOS has some kind of scale detection
-                    if (Config::$roundingPrecision !== -1) {
-                        $decimalPlaces = Config::$roundingPrecision;
-                    } else {
-                        $decimalPlaces = 16;
-                    }
-
-                    return (string) (number_format($geometry->getX(), $decimalPlaces, '.', '') + 0) . ' ' . (string) (number_format($geometry->getY(), $decimalPlaces, '.', '') + 0);
-                } else {
-                    return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
-                }
+                // FIXME: I don't know how to trim unneeded decimals, GEOS has some kind of scale detection
+                return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
 
             case 'LineString':
                 foreach ($geometry->getComponents() as $component) {
