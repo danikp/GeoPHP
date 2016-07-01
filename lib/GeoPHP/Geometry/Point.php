@@ -201,7 +201,7 @@ class Point extends Geometry
         }
 
         if (!$this->isEmpty() && !$geometry->isEmpty()) {
-            return $this->x() == $geometry->x() && $this->y() == $geometry->y();
+            return abs($this->x() - $geometry->x()) <= 1.0E-9 && abs($this->y() - $geometry->y()) <= 1.0E-9;
         } elseif ($this->isEmpty() && $geometry->isEmpty()) {
             return true;
         } else {
