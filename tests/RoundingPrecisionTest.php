@@ -36,10 +36,12 @@ class RoundingPrecisionTest extends BaseTest
 
         Config::setTrimUnnecessaryDecimals($trim);
 
-        // try native
-        $geom = Geo::load($geometryWkt);
-        $wkt = $geom->out('wkt');
-        $this->assertEquals($expected, $wkt);
+        if (!$trim) {
+            // try native
+            $geom = Geo::load($geometryWkt);
+            $wkt = $geom->out('wkt');
+            $this->assertEquals($expected, $wkt);
+        }
 
         if (!$installed) {
             Config::restoreDefaults();
