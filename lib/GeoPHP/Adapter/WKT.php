@@ -321,10 +321,11 @@ class WKT extends Adapter
         switch ($geometry->geometryType()) {
             case 'Point':
                 if (Config::$trimUnnecessaryDecimals) {
+                    // FIXME: I don't know how to trim unneeded decimals, GEOS has some kind of scale detection
                     if (Config::$roundingPrecision !== -1) {
-                        $decimalPlaces = 3;
+                        $decimalPlaces = Config::$roundingPrecision;
                     } else {
-                        $decimalPlaces = 6;
+                        $decimalPlaces = 16;
                     }
 
                     return (string) (number_format($geometry->getX(), $decimalPlaces, '.', '') + 0) . ' ' . (string) (number_format($geometry->getY(), $decimalPlaces, '.', '') + 0);

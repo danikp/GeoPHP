@@ -27,6 +27,13 @@ class RoundingPrecisionTest extends BaseTest
         }
 
         Config::setRoundingPrecision($precision);
+
+        // FIXME: trim is supported only for GEOS
+        if ($trim && !$installed) {
+            Config::restoreDefaults();
+            $this->markTestSkipped('Trim is not supported without GEOS extension');
+        }
+
         Config::setTrimUnnecessaryDecimals($trim);
 
         // try native
