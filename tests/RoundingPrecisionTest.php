@@ -27,21 +27,12 @@ class RoundingPrecisionTest extends BaseTest
         }
 
         Config::setRoundingPrecision($precision);
-
-        // FIXME: trim is supported only for GEOS
-        if ($trim && !$installed) {
-            Config::restoreDefaults();
-            $this->markTestSkipped('Trim is not supported without GEOS extension');
-        }
-
         Config::setTrimUnnecessaryDecimals($trim);
 
-        if (!$trim) {
-            // try native
-            $geom = Geo::load($geometryWkt);
-            $wkt = $geom->out('wkt');
-            $this->assertEquals($expected, $wkt);
-        }
+        // try native
+        $geom = Geo::load($geometryWkt);
+        $wkt = $geom->out('wkt');
+        $this->assertSame($expected, $wkt);
 
         if (!$installed) {
             Config::restoreDefaults();
@@ -57,7 +48,7 @@ class RoundingPrecisionTest extends BaseTest
 
         Config::restoreDefaults();
 
-        $this->assertEquals($expected, $wkt);
+        $this->assertSame($expected, $wkt);
     }
 
     public function getDataForPrecisionTest()
@@ -78,6 +69,10 @@ class RoundingPrecisionTest extends BaseTest
 
             array(-1, true, 'MULTILINESTRING((-71.160281 42.258729,-71.160837 42.259113,-71.161141 42.25932))', 'MULTILINESTRING ((-71.160281 42.258729, -71.160837 42.259113, -71.161141 42.25932))'),
             array(5, true, 'MULTILINESTRING((-71.160281 42.258729,-71.160837 42.259113,-71.161141 42.25932))', 'MULTILINESTRING ((-71.16 42.259, -71.161 42.259, -71.161 42.259))'),
+
+            array(7, true, 'POINT (17.1234567 33.1234567)', 'POINT (17.12346 33.12346)'),
+            array(-1, false, 'POINT (17.1234567 33.1234567)', 'POINT (17.1234566999999984 33.1234566999999984)'),
+            array(2, false, 'POINT (17.123 33.123)', 'POINT (17.12 33.12)'),
         );
     }
 }

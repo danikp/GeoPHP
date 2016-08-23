@@ -20,6 +20,7 @@ use GeoPHP\Geometry\MultiPoint;
 use GeoPHP\Geometry\MultiPolygon;
 use GeoPHP\Geometry\Point;
 use GeoPHP\Geometry\Polygon;
+use GeoPHP\Util\TrimUnneededDecimalsFunction;
 
 /**
  * WKT (Well Known Text) Adapter.
@@ -320,8 +321,25 @@ class WKT extends Adapter
         $parts = array();
         switch ($geometry->geometryType()) {
             case 'Point':
-                // FIXME: I don't know how to trim unneeded decimals, GEOS has some kind of scale detection
-                return sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
+                ini_set('precision', 16);
+                if (Config::$trimUnnecessaryDecimals) {
+                    $func = new TrimUnneededDecimalsFunction();
+                    if (Config::$roundingPrecision == -1) {
+                        $precision = 16;
+                    } else {
+                        $precision = Config::$roundingPrecision;
+                    }
+                    $result = $func->__invoke(
+                        sprintf('%.' . ($precision - 2) . 'f', $geometry->getX())
+                    ) . ' ' . $func->__invoke(
+                        sprintf('%.' . ($precision - 2) . 'f', $geometry->getY())
+                    );
+                } else {
+                    $result = sprintf(Config::$roundingPrecisionFormat, $geometry->getX()) . ' ' . sprintf(Config::$roundingPrecisionFormat, $geometry->getY());
+                }
+                ini_restore('precision');
+
+                return $result;
 
             case 'LineString':
                 foreach ($geometry->getComponents() as $component) {
