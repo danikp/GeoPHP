@@ -1,11 +1,20 @@
 <?php
 
+/*
+ * This file is part of the GeoPHP package.
+ * Copyright (c) 2011 - 2016 Patrick Hayes and contributors
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace GeoPHP\Util;
 
 class TrimUnneededDecimalsFunction
 {
     /**
      * @param float|string $number
+     *
      * @return string
      */
     public function __invoke($number)
@@ -22,7 +31,7 @@ class TrimUnneededDecimalsFunction
         $roundNines = false;
         $i = count($buffer);
         // arrays go to length-1 of course
-        $i--;
+        --$i;
         //  Is there a rounding error at the end?
         if ($i > 6 &&
             $buffer[$i] != '0' &&
@@ -44,20 +53,19 @@ class TrimUnneededDecimalsFunction
             $buffer[$i - 4] == '9' &&
             $buffer[$i - 5] == '9'
         ) {
-
             $roundNines = true;
         }
 
         // Now let's format the string
-        for ($j = $i; $j >= 0; $j--) {
+        for ($j = $i; $j >= 0; --$j) {
             if ($roundNines) {
                 if ($buffer[$j] == '9') {
                     $buffer[$j] = null;
                 } else {
-                    $buffer[$j]++;
+                    ++$buffer[$j];
                     $roundNines = false;
                 }
-            } else if ($buffer[$j] == '0') {
+            } elseif ($buffer[$j] == '0') {
                 $buffer[$j] = null;
             } else {
                 // remove period if no decimals
@@ -69,11 +77,10 @@ class TrimUnneededDecimalsFunction
             }
         }
 
-        return join('', $buffer);
+        return implode('', $buffer);
     }
 
     public function __construct()
     {
     }
-
 }
