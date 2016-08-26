@@ -16,22 +16,6 @@ before_script:
   - install --mode 0755 phpmd.phar $PWD/bin/phpmd
   - if [[ $WITH_GEOS == true ]]; then bash $PWD/.travis/install_geos.sh; fi;
 
-before_install:
-#  - sudo apt-get update -qq
-#  # Install postgis
-#  - sudo apt-get install -qq postgresql-9.3-postgis-2.1
-#  # Install Geos extension
-#  - sudo apt-get install -qq php5-dev phpunit
-#  - git clone git://github.com/libgeos/libgeos.git
-#  - cd libgeos
-#  - ./autogen.sh
-#  - ./configure --enable-php
-#  - make
-#  - sudo make install
-#  - cd ..
-#  - sudo ldconfig
-#  - echo "extension = geos.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-
 install:
   - composer install
 
@@ -44,7 +28,7 @@ script:
 
 env:
   - WITH_GEOS=true VERSION=3.5.0
-  - WITH_GEOS=true VERSION=svn-3.4
+  - WITH_GEOS=true VERSION=3.4.2
   - WITH_GEOS=false
 
 # run tests on the following versions
@@ -66,9 +50,4 @@ matrix:
     - php: hhvm
       env: WITH_GEOS=true VERSION=3.5.0
     - php: hhvm
-      env: WITH_GEOS=true VERSION=svn-3.4
-    # php7 extension is not available
-    - php: 7
-      env: WITH_GEOS=true VERSION=3.5.0
-    - php: 7
-      env: WITH_GEOS=true VERSION=svn-3.4
+      env: WITH_GEOS=true VERSION=3.4.2
