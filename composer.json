@@ -3,6 +3,7 @@
   "license": "GPL-2 or New-BSD",
   "type": "library",
   "keywords": [
+    "spatial",
     "Geo",
     "GIS",
     "Geography",
